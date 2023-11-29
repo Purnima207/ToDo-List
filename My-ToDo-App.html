@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ToDO App</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Poppins:ital@0;1&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style type="text/css">
+		.main-head{
+			margin: 0px auto;
+			text-align: center;
+			height: 100px;
+			width: 250px;
+  			background-image: linear-gradient(to bottom right, red , blue);
+		}
+		.main-head h1{
+			font-family: 'Nunito Sans', sans-serif;
+			font-family: 'Poppins', sans-serif;
+			position: relative;
+			top: 30px;
+			color: white;
+			font-size: 30px;
+			font-weight: bold;
+		}
+		.add{
+			margin: 0px auto;
+			text-align: center;
+		}
+		.add input{
+			width: 300px;
+			border-radius: 50px;
+			padding: 10px;
+			border: solid 2px green;
+			font-weight: bold;
+			font-size: 20px;
+		}
+		.add button{
+			background-color: purple;
+			color: white;
+			width: 50px;
+			height: 50px;
+			text-align: center;
+			border-radius: 40px;
+			position: relative;
+			top: 8px;
+			border: none;
+			right: 55px;
+			font-size: 40px;
+		}
+		#show{
+			font-family: 'Nunito Sans', sans-serif;
+			font-family: 'Poppins', sans-serif;
+			font-weight: bold;
+			font-size: 20px;
+			color: black;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="main-head">
+		<h1>My ToDo App</h1>
+	</div>
+	<div class="add">
+		<input type="text"  id="btn" name="add-task" placeholder="Add Task" />
+		<button class="fa fa-plus" onclick="add()" aria-hidden="true" type="submit"></button>
+		
+	</div> 
+
+	<div id="show">
+		
+	</div>
+	
+
+	<script type="text/javascript">
+		function add(){
+			// var val = document.getElementById("btn").value;
+			// alert(val);
+			// document.getElementById("show").innerHTML = val;
+
+			// Get the input value
+            var taskText = document.getElementById('btn').value;
+
+            if (taskText.trim() === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            // Create a new list item
+            var listItem = document.createElement('li');
+            listItem.textContent = taskText;
+
+                        // Create an edit button
+            var editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = function() {
+                // Create an input field for editing
+                var editInput = document.createElement('input');
+                editInput.type = 'text';
+                editInput.value = listItem.textContent;
+
+                // Replace the task text with the input field
+                listItem.innerHTML = '';
+                listItem.appendChild(editInput);
+
+                // Set up an event listener for input blur
+                editInput.addEventListener('blur', function() {
+                    // Save the edited text when the input field loses focus
+                    listItem.textContent = editInput.value;
+                });
+            };
+
+
+            // Create a button
+            var deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = function() {
+                // Remove the list item when the button is clicked
+                listItem.remove();
+            };
+
+            // Append the button to the list item
+            listItem.appendChild(editButton).style.cssText = `background-color: green;
+            	color: yellow;
+            	border: none;
+            	padding: 10px;
+            	width: 60px;
+            	border-radius: 6px;
+            	margin: 6px;
+            `;
+            listItem.appendChild(deleteButton).style.cssText = `background-color: green;
+            	color: yellow;
+            	border: none;
+            	padding: 10px;
+            	border-radius: 6px;
+            	margin: 6px;
+            `;
+
+            // Append the list item to the container
+            document.getElementById('show').appendChild(listItem);
+
+            // Clear the input field
+            document.getElementById('btn').value = '';
+        }
+		
+	</script>
+</body>
+</html>
